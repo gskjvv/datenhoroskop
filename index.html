@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mystisches Datenhoroskop</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mystery+Quest&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- Lade-Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="overlay-inner">
+        <div class="overlay-glow"></div>
+
+        <div class="crystal-ball-wrapper">
+          <img
+            src="images/AdobeStock_1445275750.png"
+            alt="Kristallkugel"
+            class="crystal-ball-img"
+          />
+
+          <div class="crystal-ball-text">
+            <span>Die Sterne</span>
+            <span>bereiten dein</span>
+            <span>Horoskop vor ✨</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App -->
+    <main class="app">
+      <!-- Header -->
+      <header class="header">
+        <p class="top-badge">✨ 100% WAHR ✨</p>
+        <div class="mini-stickers">
+          <span>💖 Aszendent geprüft</span>
+          <span>🔮 Daten sagen nie die Unwahrheit</span>
+        </div>
+        <h1 class="title">Dein mystisches Datenhoroskop</h1>
+        <p class="subtitle">Die Sterne lügen nicht. Aber Browser auch nicht.</p>
+      </header>
+
+      <!-- Kristallkugel / Hero -->
+      <section class="hero-section">
+        <div class="hero-deco left-badge">Schicksal lädt…</div>
+        <div class="hero-deco right-badge">Keine Zufälle nur Daten</div>
+
+        <div class="orb-section">
+          <img
+            src="images/AdobeStock_1445275750.png"
+            alt="Kristallkugel"
+            class="hero-orb"
+          />
+          <div class="orb-text">Deine Daten wurden gelesen ✨</div>
+        </div>
+      </section>
+
+      <!-- Horoskop -->
+      <section class="reading" id="readingBox">
+        <h2 class="reading-title">🔮 Deine kosmische Lesung 🔮</h2>
+
+        <div class="horoskop-block" id="horoskopText">
+          Hier erscheint dein Horoskop.
+        </div>
+      </section>
+
+      <div class="data-hint">
+        ✦ Diese Lesung basiert auf automatisch ausgelesenen Gerätedaten ✦
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer-note">
+        💜 Deine Daten, dein Schicksal, dein Universum 💜
+      </footer>
+    </main>
+
+    <!-- Sternenhimmel -->
+    <div id="starfield"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+      const starfield = document.getElementById("starfield");
+      const numberOfStars = 60;
+
+      for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement("span");
+        star.classList.add("star");
+        star.style.top = Math.random() * 100 + "%";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.animationDelay = Math.random() * 3 + "s";
+
+        const size = 1 + Math.random() * 3;
+        star.style.width = size + "px";
+        star.style.height = size + "px";
+
+        starfield.appendChild(star);
+      }
+    </script>
+  </body>
+</html>

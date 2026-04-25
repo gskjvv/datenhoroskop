@@ -1,0 +1,586 @@
+/* ------------------------------
+   RESET / GRUNDLAYOUT
+------------------------------ */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Mystery Quest", cursive;
+  color: #ffe9ff;
+  background: radial-gradient(
+      circle at top,
+      rgba(127, 34, 255, 0.5),
+      transparent 32%
+    ),
+    radial-gradient(circle at 80% 20%, rgba(255, 0, 174, 0.2), transparent 25%),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 80, 220, 0.12),
+      transparent 22%
+    ),
+    linear-gradient(180deg, #160022 0%, #080010 45%, #12001f 100%);
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* leichter Nebel */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(255, 255, 255, 0.05),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 80% 60%,
+      rgba(255, 120, 255, 0.08),
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 50% 90%,
+      rgba(170, 80, 255, 0.06),
+      transparent 25%
+    );
+  filter: blur(30px);
+}
+
+/* ------------------------------
+   APP WRAPPER
+------------------------------ */
+.app {
+  width: 100%;
+  max-width: 430px;
+  padding: 16px 14px 30px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ------------------------------
+   STERNENHIMMEL
+------------------------------ */
+#starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #ffd9ff 45%, transparent 80%);
+  opacity: 0.85;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+/* ------------------------------
+   HEADER
+------------------------------ */
+.header {
+  text-align: center;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.top-badge {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: #fff0ff;
+  border: 2px solid rgba(255, 179, 255, 0.9);
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 170, 0.3),
+    rgba(165, 85, 255, 0.28)
+  );
+  box-shadow: 0 0 12px rgba(255, 110, 230, 0.35),
+    0 0 24px rgba(255, 110, 230, 0.18), inset 0 0 10px rgba(255, 255, 255, 0.12);
+  transform: rotate(-2deg);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2rem, 9vw, 3.2rem);
+  line-height: 0.95;
+  color: #ffbaf5;
+  text-shadow: 0 0 8px rgba(255, 180, 255, 0.9),
+    0 0 18px rgba(255, 100, 220, 0.85), 0 0 36px rgba(138, 43, 226, 0.55),
+    0 0 54px rgba(255, 0, 170, 0.3);
+  letter-spacing: 0.02em;
+  animation: titleShimmer 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes titleShimmer {
+  from {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  to {
+    transform: scale(1.01);
+    filter: brightness(1.08);
+  }
+}
+
+.subtitle {
+  margin: 12px auto 0;
+  padding: 8px 12px;
+  max-width: 92%;
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: #ffe8ff;
+  border: 1px solid rgba(255, 192, 255, 0.55);
+  border-radius: 999px;
+  background: rgba(23, 0, 35, 0.6);
+  box-shadow: 0 0 14px rgba(255, 100, 220, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.04);
+}
+
+.mini-stickers {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 0;
+}
+
+.mini-stickers span {
+  padding: 5px 10px;
+  font-size: 0.68rem;
+  border-radius: 999px;
+  color: #fff6ff;
+  background: rgba(255, 0, 170, 0.18);
+  border: 1px solid rgba(255, 184, 242, 0.45);
+  box-shadow: 0 0 10px rgba(255, 100, 220, 0.15),
+    inset 0 0 6px rgba(255, 255, 255, 0.08);
+}
+
+/* ------------------------------
+   HERO / KRISTALLKUGEL
+------------------------------ */
+.hero-section {
+  position: relative;
+  margin: 20px 0 18px;
+  padding-top: 8px;
+}
+
+.hero-deco {
+  position: absolute;
+  z-index: 3;
+  max-width: 110px;
+  padding: 10px 10px;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.1;
+  color: #ffe8ff;
+  background: radial-gradient(circle at center, #4f0067 0%, #250033 100%);
+  border: 2px solid rgba(255, 191, 255, 0.7);
+  box-shadow: 0 0 18px rgba(255, 108, 232, 0.45),
+    inset 0 0 14px rgba(255, 255, 255, 0.08);
+}
+
+.left-badge {
+  left: -5px;
+  top: 110px;
+  border-radius: 18px 18px 18px 4px;
+  transform: rotate(-7deg);
+}
+
+.right-badge {
+  right: -5px;
+  top: 20px;
+  border-radius: 18px 18px 4px 18px;
+  transform: rotate(6deg);
+}
+
+.orb-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 255px;
+  margin: 0 auto;
+}
+
+.orb-section::before {
+  content: "";
+  position: absolute;
+  width: 88%;
+  height: 88%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(210, 140, 255, 0.35) 0%,
+    rgba(255, 0, 170, 0.12) 28%,
+    rgba(90, 0, 130, 0.18) 45%,
+    transparent 72%
+  );
+  filter: blur(16px);
+  z-index: 0;
+}
+
+.orb-section::after {
+  content: "✦ ✧ ✦";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  color: rgba(255, 210, 248, 0.95);
+  text-shadow: 0 0 8px rgba(255, 120, 245, 0.8),
+    0 0 18px rgba(180, 90, 255, 0.5);
+}
+
+.hero-orb {
+  position: relative;
+  z-index: 2;
+  width: min(72vw, 300px);
+  max-width: 300px;
+  filter: drop-shadow(0 0 25px rgba(255, 110, 230, 0.7))
+    drop-shadow(0 0 45px rgba(144, 76, 255, 0.5));
+  animation: orbPulse 4s ease-in-out infinite;
+}
+
+@keyframes orbPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+.orb-text {
+  position: absolute;
+  z-index: 3;
+  top: 49%;
+  left: 50%;
+  width: 58%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 1.3rem;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  color: #fff4ff;
+  text-shadow: 0 0 10px #fff, 0 0 20px #ff66ff, 0 0 40px #a855ff;
+}
+
+/* ------------------------------
+   READING BOX
+------------------------------ */
+.reading {
+  position: relative;
+  margin-top: 10px;
+  padding: 18px 14px 16px;
+  border-radius: 26px;
+  background: linear-gradient(
+      180deg,
+      rgba(32, 0, 51, 0.86),
+      rgba(9, 0, 20, 0.92)
+    ),
+    radial-gradient(circle at top, rgba(255, 119, 228, 0.15), transparent 50%);
+  border: 2px solid rgba(255, 164, 242, 0.8);
+  box-shadow: 0 0 30px rgba(255, 102, 255, 0.45),
+    0 0 60px rgba(150, 80, 255, 0.4), 0 0 70px rgba(255, 0, 170, 0.12),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.reading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 26px;
+  pointer-events: none;
+  background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.22) 1px,
+      transparent 2px
+    ),
+    radial-gradient(circle, rgba(255, 100, 230, 0.18) 1px, transparent 2px);
+  background-size: 22px 22px, 32px 32px;
+  opacity: 0.18;
+  animation: sparkleMove 12s linear infinite;
+}
+
+.reading::after {
+  content: "✦ ☽ ✦";
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-size: 0.9rem;
+  color: rgba(255, 190, 245, 0.8);
+  text-shadow: 0 0 10px rgba(255, 100, 220, 0.45);
+}
+
+@keyframes sparkleMove {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 22px 22px, 32px 32px;
+  }
+}
+
+.reading-title {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 14px;
+  text-align: center;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: #ffe2ff;
+  text-shadow: 0 0 8px rgba(255, 145, 245, 0.8),
+    0 0 14px rgba(158, 79, 255, 0.45);
+}
+
+/* ------------------------------
+   HOROSKOP-TEXT
+------------------------------ */
+.horoskop-block {
+  position: relative;
+  z-index: 2;
+  padding: 10px 2px 2px;
+  color: #fff0ff;
+  font-size: 1.06rem;
+  line-height: 1.65;
+  text-align: left;
+}
+
+.horoskop-block p {
+  position: relative;
+  margin: 0 0 14px;
+  padding: 0 0 12px 44px;
+  border-bottom: 1px solid rgba(255, 170, 240, 0.22);
+  text-shadow: 0 0 8px rgba(255, 160, 245, 0.12);
+}
+
+.horoskop-block p:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.horoskop-block p::before {
+  content: "✦";
+  position: absolute;
+  left: 12px;
+  top: 2px;
+  font-size: 1.3rem;
+  color: #ff8df2;
+  text-shadow: 0 0 10px #ff8df2, 0 0 20px #c084fc;
+}
+
+.horoskop-block:not(:has(p)) {
+  text-align: center;
+  padding: 16px 8px;
+}
+
+/* ------------------------------
+   DATA HINT
+------------------------------ */
+.data-hint {
+  margin-top: 24px;
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: #ffb8f2;
+  background: rgba(30, 0, 50, 0.5);
+  border: 1px solid rgba(255, 170, 240, 0.3);
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(255, 100, 220, 0.2),
+    inset 0 0 8px rgba(255, 255, 255, 0.05);
+  text-shadow: 0 0 8px rgba(255, 100, 220, 0.4);
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* ------------------------------
+   FOOTER
+------------------------------ */
+.footer-note {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #ffb8f2;
+  text-shadow: 0 0 10px rgba(255, 105, 225, 0.35);
+}
+
+/* ------------------------------
+   LOADING OVERLAY
+------------------------------ */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: radial-gradient(
+    circle at center,
+    rgba(71, 0, 98, 0.8),
+    rgba(8, 0, 20, 0.98)
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease;
+}
+
+.loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay-inner {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.overlay-glow {
+  position: absolute;
+  width: 78vw;
+  height: 78vw;
+  max-width: 360px;
+  max-height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(210, 150, 255, 0.45) 0%,
+    rgba(130, 40, 255, 0.15) 45%,
+    transparent 70%
+  );
+  filter: blur(18px);
+}
+
+.crystal-ball-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crystal-ball-img {
+  width: min(74vw, 310px);
+  filter: drop-shadow(0 0 24px rgba(255, 138, 235, 0.7))
+    drop-shadow(0 0 44px rgba(133, 70, 255, 0.45));
+  animation: ballFloat 4s ease-in-out infinite;
+}
+
+@keyframes ballFloat {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.03);
+  }
+}
+
+.crystal-ball-text {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  width: 60%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+  color: #fff8ff;
+  font-size: 1.15rem;
+  line-height: 1.05;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.95),
+    0 0 16px rgba(255, 106, 240, 0.8);
+}
+
+.crystal-ball-text.fly-away {
+  animation: flyAway 1.2s ease-in forwards;
+}
+
+@keyframes flyAway {
+  0% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: translate(-180%, -180%) scale(0.25) rotate(540deg);
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+/* ------------------------------
+   MOBILE FEINSCHLIFFE
+------------------------------ */
+@media (max-width: 380px) {
+  .title {
+    font-size: 1.85rem;
+  }
+
+  .subtitle {
+    font-size: 0.72rem;
+  }
+
+  .hero-deco {
+    max-width: 92px;
+    font-size: 0.72rem;
+    padding: 8px 8px;
+  }
+
+  .left-badge {
+    top: 92px;
+  }
+
+  .right-badge {
+    top: 44px;
+  }
+
+  .orb-text {
+    font-size: 1.1rem;
+    width: 62%;
+  }
+
+  .reading-title {
+    font-size: 1.1rem;
+  }
+
+  .horoskop-block {
+    font-size: 0.98rem;
+  }
+}
