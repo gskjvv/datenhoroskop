@@ -47,33 +47,33 @@ function buildHoroskop(facts) {
   const signatur = facts.uniqueId.slice(0, 8);
 
   const line1 = pick([
-    `Dein Gerät meldet sich hier als ${facts.platform}.`,
-    `Diese Seite liest dein Gerät als ${facts.platform}.`,
-    `In dieser Lesung erscheint dein Gerät als ${facts.platform}.`,
+    `Die Konstellation deines Geräts zeigt ein ${facts.platform}.`,
+    `In den Daten zeichnet sich ein ${facts.platform} ab.`,
+    `Dein Gerät erscheint in dieser Lesung als ${facts.platform}.`,
   ]);
 
   const line2 = pick([
-    `Dein Bildschirm wurde als ${facts.screenWidth} x ${facts.screenHeight} Pixel ausgelesen.`,
-    `Die Fläche deines Bildschirms verrät ${facts.screenWidth} x ${facts.screenHeight} Pixel.`,
-    `Aus deinem Display wurden ${facts.screenWidth} x ${facts.screenHeight} Pixel gelesen.`,
+    `Dein Blickfeld von ${facts.screenWidth} x ${facts.screenHeight} Pixeln bestimmt, wie sich deine Welt entfaltet.`,
+    `Die Auflösung ${facts.screenWidth} x ${facts.screenHeight} formt den Rahmen deiner Wahrnehmung.`,
+    `Mit ${facts.screenWidth} x ${facts.screenHeight} Pixeln entfaltet sich deine sichtbare Welt.`,
   ]);
 
   const line3 = pick([
-    `Dein System erscheint im ${facts.prefersDark}, und auch diese Oberfläche wird Teil deiner Spur.`,
-    `${facts.prefersDark} wirkt wie eine Einstellung, wird hier aber als Datenpunkt sichtbar.`,
-    `Der ${facts.prefersDark} ist nicht nur Gestaltung, sondern ebenfalls auslesbare Information.`,
+    `Der ${facts.prefersDark} liegt wie ein Schleier über deiner digitalen Aura.`,
+    `Dein ${facts.prefersDark} wirkt wie ein Schleier über deiner Oberfläche.`,
+    `Auch dein ${facts.prefersDark} wird Teil deiner digitalen Aura.`,
   ]);
 
   const line4 = pick([
-    `Auch dein ungefährer Standort wird sichtbar: ${facts.city}, ${facts.country}.`,
-    `Aus deiner IP-Adresse lässt sich ein ungefährer Ort ableiten: ${facts.city}, ${facts.country}.`,
-    `Dein Ort erscheint nicht als Geheimnis, sondern als Angabe: ${facts.city}, ${facts.country}.`,
+    `Ein Ort zeichnet sich in den Daten ab: ${facts.city}, ${facts.country}.`,
+    `Die Daten verweisen auf einen Ort: ${facts.city}, ${facts.country}.`,
+    `Ein ungefährer Ort wird sichtbar: ${facts.city}, ${facts.country}.`,
   ]);
 
   const line5 = pick([
-    `Cookies sind ${facts.cookieEnabled} aktiviert, und die Signatur ${signatur} bleibt als wiedererkennbare Spur bestehen.`,
-    `Mit Sprache ${facts.language}, Zeitzone ${facts.timeZone}, Cookies ${facts.cookieEnabled} und Signatur ${signatur} entsteht ein technisches Profil.`,
-    `Sprache ${facts.language}, Zeitzone ${facts.timeZone} und die Signatur ${signatur} reichen aus, um aus einzelnen Daten ein Muster zu formen.`,
+    `Sprache ${facts.language}, Zeitzone ${facts.timeZone}, Cookies ${facts.cookieEnabled} und die Signatur ${signatur} formen dein technisches Sternbild.`,
+    `Aus Sprache ${facts.language}, Zeitzone ${facts.timeZone}, Cookies ${facts.cookieEnabled} und der Signatur ${signatur} entsteht dein technisches Sternbild.`,
+    `Sprache ${facts.language}, Zeitzone ${facts.timeZone}, Cookies ${facts.cookieEnabled} und Signatur ${signatur} verweben sich zu deinem technischen Sternbild.`,
   ]);
 
   return [line1, line2, line3, line4, line5].join(" ");
