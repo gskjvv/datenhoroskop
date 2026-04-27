@@ -1,47 +1,71 @@
-import cors from "cors";
 import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
+import cors from "cors";
 
 const app = express();
-const port = process.env.PORT || 3000;
-
-// Für __dirname in ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 app.use(cors());
-app.use(express.json({ limit: "200kb" }));
-
-// 👉 Frontend ausliefern (WICHTIG!)
-app.use(express.static(__dirname));
-
-// Startseite
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
+app.use(express.json());
 
 // -----------------------------
-// Horoskop Generator (ohne OpenAI)
+// Helper
 // -----------------------------
-function generateHoroskop(data) {
-  const {
-    platform,
-    screenWidth,
-    screenHeight,
-    prefersDark,
-    lat,
-    lon,
-    language,
-    timeZone,
-    uniqueId,
-  } = data;
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-  const mode = prefersDark ? "Dark Mode" : "Light Mode";
+// -----------------------------
+// Daten aufbereiten
+// -----------------------------
+function buildFacts(deviceInfo) {
+  const safe = deviceInfo || {};
 
-  const idShort = uniqueId ? uniqueId.slice(0, 8) : "unbekannt";
+  return {
+    language: String(safe.language || "unbekannt"),
+    platform: String(safe.platform || "unbekannt"),
+    screenWidth: safe.screenWidth || "unbekannt",
+    screenHeight: safe.screenHeight || "unbekannt",
+    timeZone: String(safe.timeZone || "unbekannt"),
+    city: String(safe.city || "unbekannt"),
+    region: String(safe.region || "unbekannt"),
+    country: String(safe.country || "unbekannt"),
+    cookieEnabled: String(safe.cookieEnabled || "unbekannt"),
+    uniqueId: String(safe.uniqueId || "keine Signatur"),
+  };
+}
 
-  return `Dein Gerät meldet sich hier als ${platform}. Auf deinem Bildschirm mit ${screenWidth} x ${screenHeight} Pixeln wird mehr sichtbar, als nur Oberfläche. ${platform} im ${mode} wirkt ruhig, doch diese Kombination wird registriert und gespeichert. Selbst dein Standort hinterlässt Spuren: ${lat}, ${lon}. Mit Sprache ${language}, Zeitzone ${timeZone} und der Signatur ${idShort} entsteht ein Profil, das sich nicht mehr vollständig von dir lösen lässt.`;
+// -----------------------------
+// Horoskop generieren
+// -----------------------------
+function buildHoroskop(facts) {
+  const signatur = facts.uniqueId.slice(0, 8);
+
+  const line1 = pick([
+    `Dein Gerät spricht die Sprache ${facts.language} und nutzt ein System wie ${facts.platform}.`,
+    `Die Konstellation zeigt ein Gerät mit ${facts.platform} und einer bevorzugten Sprache von ${facts.language}.`,
+  ]);
+
+  const line2 = pick([
+    `Die Auflösung von ${facts.screenWidth} × ${facts.screenHeight} bestimmt, wie deine Welt dargestellt wird.`,
+    `Mit einer Anzeige von ${facts.screenWidth} × ${facts.screenHeight} formt dein Bildschirm deine Wahrnehmung.`,
+  ]);
+
+  const line3 = pick([
+    `Deine Zeit ist auf ${facts.timeZone} ausgerichtet.`,
+    `Die Zeitstruktur deines Systems verweist auf ${facts.timeZone}.`,
+  ]);
+
+  const line4 = pick([
+    `Auch dein ungefährer Standort wird sichtbar: ${facts.city}, ${facts.country}.`,
+    `Dein Gerät verrät einen Ort: ${facts.city}, ${facts.country}.`,
+    `Aus deinen Daten lässt sich ein Standort ableiten: ${facts.city}, ${facts.country}.`,
+  ]);
+
+  const line5 = pick([
+    `Cookies sind ${facts.cookieEnabled} aktiviert, und die Signatur ${signatur} bleibt bestehen.`,
+    `Der Zustand deiner Cookies ist ${facts.cookieEnabled}, begleitet von der Signatur ${signatur}.`,
+    `Mit Cookies ${facts.cookieEnabled} und der Kennung ${signatur} entsteht ein wiedererkennbares Muster.`,
+  ]);
+
+  return [line1, line2, line3, line4, line5].join(" ");
 }
 
 // -----------------------------
@@ -49,20 +73,24 @@ function generateHoroskop(data) {
 // -----------------------------
 app.post("/api/horoskop", (req, res) => {
   try {
-    const deviceInfo = req.body?.deviceInfo || {};
-
-    const horoskop = generateHoroskop(deviceInfo);
+    const deviceInfo = req.body.deviceInfo;
+    const facts = buildFacts(deviceInfo);
+    const horoskop = buildHoroskop(facts);
 
     res.json({ horoskop });
   } catch (error) {
     console.error("Fehler:", error);
     res.status(500).json({
-      error: "Fehler bei der Generierung",
+      horoskop:
+        "Die Sterne bleiben heute still. Beim Generieren ist ein Fehler aufgetreten.",
     });
   }
 });
 
 // -----------------------------
-app.listen(port, () => {
-  console.log(`🔮 Server läuft auf http://localhost:${port}`);
+// Server starten
+// -----------------------------
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server läuft auf Port ${PORT}`);
 });

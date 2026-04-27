@@ -105,13 +105,14 @@ body::before {
 ------------------------------ */
 .header {
   text-align: center;
-  margin-bottom: 18px;
+  margin-bottom: 8px; /* weniger Abstand nach unten */
   position: relative;
 }
 
+/* Badge bekommt mehr Luft */
 .top-badge {
   display: inline-block;
-  margin: 0 0 10px;
+  margin: 0 0 18px; /* ⬅️ mehr Abstand zum Titel */
   padding: 6px 14px;
   font-size: 0.8rem;
   color: #fff0ff;
@@ -127,8 +128,9 @@ body::before {
   transform: rotate(-2deg);
 }
 
+/* Titel bekommt Luft nach unten */
 .title {
-  margin: 0;
+  margin: 0 0 18px; /* ⬅️ wichtig */
   font-size: clamp(2rem, 9vw, 3.2rem);
   line-height: 0.95;
   color: #ffbaf5;
@@ -139,50 +141,22 @@ body::before {
   animation: titleShimmer 2.8s ease-in-out infinite alternate;
 }
 
-@keyframes titleShimmer {
-  from {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  to {
-    transform: scale(1.01);
-    filter: brightness(1.08);
-  }
-}
+/* Deine Sternreihe – bewusst getrennt */
+.astro-icons {
+  text-align: center;
 
-.subtitle {
-  margin: 12px auto 0;
-  padding: 8px 12px;
-  max-width: 92%;
-  font-size: 0.78rem;
-  line-height: 1.3;
-  color: #ffe8ff;
-  border: 1px solid rgba(255, 192, 255, 0.55);
-  border-radius: 999px;
-  background: rgba(23, 0, 35, 0.6);
-  box-shadow: 0 0 14px rgba(255, 100, 220, 0.2),
-    inset 0 0 10px rgba(255, 255, 255, 0.04);
-}
+  margin-top: 12px; /* Abstand vom Titel */
+  margin-bottom: 40px; /* ⬅️ WICHTIG: Luft zur Kugel */
 
-.mini-stickers {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 10px 0 0;
-}
+  font-size: 1.3rem;
+  letter-spacing: 12px;
 
-.mini-stickers span {
-  padding: 5px 10px;
-  font-size: 0.68rem;
-  border-radius: 999px;
-  color: #fff6ff;
-  background: rgba(255, 0, 170, 0.18);
-  border: 1px solid rgba(255, 184, 242, 0.45);
-  box-shadow: 0 0 10px rgba(255, 100, 220, 0.15),
-    inset 0 0 6px rgba(255, 255, 255, 0.08);
-}
+  color: #ffd6ff;
+  opacity: 0.85;
 
+  text-shadow: 0 0 4px rgba(255, 200, 255, 0.5),
+    0 0 10px rgba(255, 120, 240, 0.4);
+}
 /* ------------------------------
    HERO / KRISTALLKUGEL
 ------------------------------ */
@@ -583,4 +557,26 @@ body::before {
   .horoskop-block {
     font-size: 0.98rem;
   }
+}
+/* HEADER FINAL OVERRIDE */
+.header {
+  margin-bottom: 0 !important;
+}
+
+.top-badge {
+  margin-bottom: 26px !important;
+}
+
+.title {
+  margin-bottom: 28px !important;
+}
+
+.astro-icons {
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+  transform: translateY(14px);
+}
+
+.hero-section {
+  margin-top: 10px !important;
 }
